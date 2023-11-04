@@ -11,6 +11,9 @@ import (
 	"github.com/spf13/viper"
 )
 
+var Filecount int
+var Minfilesize int64
+
 // filesCmd represents the files command
 var filesCmd = &cobra.Command{
 	Use:   "files",
@@ -27,4 +30,10 @@ var filesCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(filesCmd)
+
+	filesCmd.PersistentFlags().IntVarP(&Filecount, "filecount", "f", 10, "Limit the number of files returned.")
+	viper.BindPFlag("filecount", filesCmd.PersistentFlags().Lookup("filecount"))
+
+	filesCmd.PersistentFlags().Int64VarP(&Minfilesize, "minfilesize", "", 50, "Minimum file size in search in MB.")
+	viper.BindPFlag("minfilesize", filesCmd.PersistentFlags().Lookup("minfilesize"))
 }
