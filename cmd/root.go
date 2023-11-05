@@ -15,7 +15,6 @@ var Debug bool
 var Highlight int
 var Path string
 
-// rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "getsize",
 	Short: "List the size of a local diretory.",
@@ -36,12 +35,10 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&Debug, "debug", "d", false, "Display debug output in console output. (default: false)")
 	viper.BindPFlag("debug", rootCmd.PersistentFlags().Lookup("debug"))
 
-	rootCmd.PersistentFlags().IntVarP(&Highlight, "highlight", "", 500, "Highlight files/directories larger over this threshold, in MB.")
+	rootCmd.PersistentFlags().IntVarP(&Highlight, "highlight", "", 500, "Highlight files/directories over this threshold, in MB.")
 	viper.BindPFlag("highlight", rootCmd.PersistentFlags().Lookup("highlight"))
 
-	rootCmd.PersistentFlags().StringVarP(&Path, "path", "p", "", "Define path to scan.")
-	rootCmd.MarkPersistentFlagRequired("path")
+	rootCmd.PersistentFlags().StringVarP(&Path, "path", "p", os.Getenv("HOME"), "Define the path to scan.")
+	rootCmd.MarkFlagRequired("path")
 	viper.BindPFlag("path", rootCmd.PersistentFlags().Lookup("path"))
 }
-
-
