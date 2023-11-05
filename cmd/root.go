@@ -13,7 +13,6 @@ import (
 var Verbose bool
 var Debug bool
 var Highlight int
-var Path string
 
 var rootCmd = &cobra.Command{
 	Use:   "getsize",
